@@ -21,9 +21,6 @@ const knex = require('knex')({
       user : 'postgres',
       password : 'suporte123',
       database : 'energy-manager',
-      expirationChecker: () => {
-        return tokenExpiration <= Date.now();
-      }
     };
   }
 });
