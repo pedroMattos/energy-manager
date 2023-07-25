@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const PDFParser = require('pdf-parse');
+const api = require('./api')
 
 function startDataProcessing(folderName) {
   console.log(folderName)
@@ -11,6 +12,7 @@ function startDataProcessing(folderName) {
 }
 
 function readPdf(pathPdfile) {
+  const payloadData = new Map()
   const dataBuffer = fs.readFileSync(pathPdfile)
   PDFParser(dataBuffer).then((data) => {
     const txtName = new Date().getTime()
@@ -21,13 +23,39 @@ function readPdf(pathPdfile) {
       input: scrapTxtSreadStream,
       terminal: false
     }).on('line', (line) => {
-      getContractNumber(line)
-      getReferenceMonth(line)
-      getInvoiceDueDate(line)
-      getKwhOrInjectEnergy(line)
-      getKwhOrInjectEnergy(line, false)
-      publicEnergyContribuition(line)
-      totalInvoicePrice(line)
+      const contractNumber = getContractNumber(line)
+      const referenceMonth = getReferenceMonth(line)
+      const invoiceDueDate = getInvoiceDueDate(line)
+      const kwh = getKwhOrInjectEnergy(line)
+      const hfp = getKwhOrInjectEnergy(line, false)
+      const icms = getICMS(line)
+      const totalInvoicePrice = getTotalInvoicePrice(line)
+      const publicEnergyContribution = getPublicEnergyContribution(line)
+      if (contractNumber) payloadData.set('contractNumber', contractNumber)
+      if (referenceMonth) payloadData.set('referenceMonth', referenceMonth)
+      if (invoiceDueDate) payloadData.set('invoiceDueDate', invoiceDueDate)
+      if (publicEnergyContribution) payloadData.set('publicEnergyContribution', publicEnergyContribution)
+      if (totalInvoicePrice) payloadData.set('totalInvoicePrice', totalInvoicePrice)
+      if (kwh) {
+        payloadData.set('kwh', kwh.quantity)
+        payloadData.set('kwhUnit', kwh.unitPrice)
+        payloadData.set('kwhPrice', kwh.price)
+      }
+      if (hfp) {
+        payloadData.set('hfp', hfp.quantity)
+        payloadData.set('hfpUnit', hfp.unitPrice)
+        payloadData.set('hfpPrice', hfp.price)
+      }
+      if (icms) {
+        payloadData.set('icms', icms.quantity)
+        payloadData.set('icmsUnit', icms.unitPrice)
+        payloadData.set('icmsPrice', icms.price)
+      }
+    }).on('close', () => {
+      fs.rm(scrapPath, (error) => {
+        if (error) console.log(error)
+      })
+      // api.setInvoiceData(payloadData)
     })
   }).catch((error) => {
     console.log(error)
@@ -40,7 +68,7 @@ function getContractNumber(line) {
   const matches = line.match(contractNumberMatch)
   if (matches?.length) {
     const contractNumber = matches.at(0).trim()
-    console.log('Nº do contrato:', contractNumber)
+    // console.log('Nº do contrato:', contractNumber)
     return contractNumber
   }
 }
@@ -51,7 +79,7 @@ function getReferenceMonth(line) {
   const matches = line.match(referenceMonth)
   if (matches?.length) {
     const month = matches.at(0).trim()
-    console.log('Mês de referência:', month)
+    // console.log('Mês de referência:', month)
 
     return month
   }
@@ -67,14 +95,14 @@ function getInvoiceDueDate(line) {
   if(matches?.length) {
     const dateMatch = line.match(datePattern)
     const invoiceDueDate = dateMatch.at(0)
-    console.log('Data de vencimento:', invoiceDueDate)
+    // console.log('Data de vencimento:', invoiceDueDate)
 
     return invoiceDueDate
   }
 }
 
 function getKwhOrInjectEnergy(line, kwh = true) {
-  // Após a frase energia eletrica, achar o numero do kwh até o final da linha
+  // Após a frase energia eletrica ou injetada, achar o numero do kwh até o final da linha
   const linePattern =  kwh ? /Energia ElétricakWh.*?(\d+).*$/gm : /Energia injetada HFPkWh.*?(\d+).*$/gm
   const matches = line.match(linePattern)
   if (matches?.length) {
@@ -84,16 +112,36 @@ function getKwhOrInjectEnergy(line, kwh = true) {
     const valuesMatch = line.match(valuesPattern)
     const values = {
       quantity: valuesMatch.at(0),
-      unitPrice: valuesMatch.at(1),
-      price: valuesMatch.at(2)
+      unitPrice: valuesMatch.at(1).replace(/,/, '.'),
+      price: valuesMatch.at(2).replace(/,/, '.')
     }
-    console.log('Seus valores:', values)
+    // console.log('Seus valores:', values)
 
     return values
   }
 }
 
-function publicEnergyContribuition(line) {
+function getICMS(line) {
+  // Após a frase energia eletrica, achar o numero do kwh até o final da linha
+  const linePattern =  /ICMSkWh.*?(\d+).*$/gm
+  const matches = line.match(linePattern)
+  if (matches?.length) {
+    // Encontra os valores, buscando tanto por decimais quanto por numeros inteiros separados por
+    // "," ou ".", até espaços em branco terminando no fim da linha
+    const valuesPattern = /(?:\b|(?<=\s))-?\d{1,3}(?:\.\d{3})*(?:,\d+)?(?=\s|$)/g
+    const valuesMatch = line.match(valuesPattern)
+    const values = {
+      quantity: valuesMatch.at(0),
+      unitPrice: valuesMatch.at(1).replace(/,/, '.'),
+      price: valuesMatch.at(2).replace(/,/, '.')
+    }
+    // console.log('Seus valores icms:', values)
+
+    return values
+  }
+}
+
+function getPublicEnergyContribution(line) {
   // Busca a linha que começa com Contrib
   const contributionPattern = /Contrib.*?(\d+).*$/gm
   const matches = line.match(contributionPattern)
@@ -101,23 +149,23 @@ function publicEnergyContribuition(line) {
     // Busca caaracteres alfanumericos de 1 a 3 digitos após . ou , globalmente até o fim da linha 
     const publicEnergyContribuitionPattern = /\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b/g
     const publicEnergyContribuitionMatch = line.match(publicEnergyContribuitionPattern)
-    const contribuition = publicEnergyContribuitionMatch.at(0)
+    const contribuition = publicEnergyContribuitionMatch.at(0).replace(/,/, '.')
 
-    console.log('Contribuição de ilum publica:', contribuition)
+    // console.log('Contribuição de ilum publica:', contribuition)
 
     return contribuition
   }
 }
 
-function totalInvoicePrice(line) {
+function getTotalInvoicePrice(line) {
   const totalInvoicePriceLinePattern = /TOTAL.*?(\d+).*$/gm
   const matches = line.match(totalInvoicePriceLinePattern)
   if (matches?.length) {
     const totalInvoicePricePattern = /\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b/g
     const totalInvoicePriceMatch = line.match(totalInvoicePricePattern)
-    const totalInvoice = totalInvoicePriceMatch.at(0)
+    const totalInvoice = totalInvoicePriceMatch.at(0).replace(/,/, '.')
 
-    console.log('Valor total da fatura:', totalInvoice)
+    // console.log('Valor total da fatura:', totalInvoice)
 
     return totalInvoice
   }
