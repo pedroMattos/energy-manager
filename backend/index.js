@@ -15,7 +15,7 @@ app.db = pgDbConnection
 //   console.log(value)
 // })
 
-dataProcessing()
+dataProcessing('files')
 
 app.listen(process.env.PORT, () => {
   console.log('Backend executando...')
