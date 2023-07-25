@@ -55,7 +55,7 @@ function readPdf(pathPdfile) {
       fs.rm(scrapPath, (error) => {
         if (error) console.log(error)
       })
-      // api.setInvoiceData(payloadData)
+      api.setInvoiceData(payloadData)
     })
   }).catch((error) => {
     console.log(error)
@@ -68,7 +68,7 @@ function getContractNumber(line) {
   const matches = line.match(contractNumberMatch)
   if (matches?.length) {
     const contractNumber = matches.at(0).trim()
-    // console.log('Nº do contrato:', contractNumber)
+
     return contractNumber
   }
 }
@@ -79,7 +79,6 @@ function getReferenceMonth(line) {
   const matches = line.match(referenceMonth)
   if (matches?.length) {
     const month = matches.at(0).trim()
-    // console.log('Mês de referência:', month)
 
     return month
   }
@@ -95,7 +94,6 @@ function getInvoiceDueDate(line) {
   if(matches?.length) {
     const dateMatch = line.match(datePattern)
     const invoiceDueDate = dateMatch.at(0)
-    // console.log('Data de vencimento:', invoiceDueDate)
 
     return invoiceDueDate
   }
@@ -112,10 +110,9 @@ function getKwhOrInjectEnergy(line, kwh = true) {
     const valuesMatch = line.match(valuesPattern)
     const values = {
       quantity: valuesMatch.at(0),
-      unitPrice: valuesMatch.at(1).replace(/,/, '.'),
-      price: valuesMatch.at(2).replace(/,/, '.')
+      unitPrice: valuesMatch.at(1).replace(/[,.]/g, m => (m === ',' ? '.' : '')),
+      price: valuesMatch.at(2).replace(/[,.]/g, m => (m === ',' ? '.' : ''))
     }
-    // console.log('Seus valores:', values)
 
     return values
   }
@@ -132,10 +129,9 @@ function getICMS(line) {
     const valuesMatch = line.match(valuesPattern)
     const values = {
       quantity: valuesMatch.at(0),
-      unitPrice: valuesMatch.at(1).replace(/,/, '.'),
-      price: valuesMatch.at(2).replace(/,/, '.')
+      unitPrice: valuesMatch.at(1).replace(/[,.]/g, m => (m === ',' ? '.' : '')),
+      price: valuesMatch.at(2).replace(/[,.]/g, m => (m === ',' ? '.' : ''))
     }
-    // console.log('Seus valores icms:', values)
 
     return values
   }
@@ -146,12 +142,11 @@ function getPublicEnergyContribution(line) {
   const contributionPattern = /Contrib.*?(\d+).*$/gm
   const matches = line.match(contributionPattern)
   if (matches?.length) {
-    // Busca caaracteres alfanumericos de 1 a 3 digitos após . ou , globalmente até o fim da linha 
+    // Busca caaracteres alfanumericos de 1 a 3 digitos após . ou , globalmente até o fim da linha
     const publicEnergyContribuitionPattern = /\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b/g
     const publicEnergyContribuitionMatch = line.match(publicEnergyContribuitionPattern)
     const contribuition = publicEnergyContribuitionMatch.at(0).replace(/,/, '.')
 
-    // console.log('Contribuição de ilum publica:', contribuition)
 
     return contribuition
   }
@@ -164,8 +159,6 @@ function getTotalInvoicePrice(line) {
     const totalInvoicePricePattern = /\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b/g
     const totalInvoicePriceMatch = line.match(totalInvoicePricePattern)
     const totalInvoice = totalInvoicePriceMatch.at(0).replace(/,/, '.')
-
-    // console.log('Valor total da fatura:', totalInvoice)
 
     return totalInvoice
   }
