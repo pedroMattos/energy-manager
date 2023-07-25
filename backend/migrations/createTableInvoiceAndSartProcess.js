@@ -1,6 +1,7 @@
 const pgDbConnection = require('../pgConfig')
+const dataProcessing = require('../dataProcessing')
 
-async function createTableInvoiceIfNotExists() {
+function createTableInvoiceAndSartProcess() {
   pgDbConnection.schema.withSchema('public').hasTable('invoice').then((exists) => {
     if (exists) return
     return pgDbConnection.schema.withSchema('public').createTable('invoice', (table) => {
@@ -19,10 +20,12 @@ async function createTableInvoiceIfNotExists() {
       table.float('hfp_price')
       table.float('public_energy_contribution')
       table.float('total_invoice_price')
+
+      dataProcessing(process.env.FILES_FOLDER_NAME)
     })
   }).catch((error) => {
     console.error(error)
   })
 }
 
-module.exports = createTableInvoiceIfNotExists
+module.exports = createTableInvoiceAndSartProcess
