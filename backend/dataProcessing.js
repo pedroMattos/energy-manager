@@ -1,17 +1,22 @@
 const fs = require('fs');
 const readline = require('readline');
 const PDFParser = require('pdf-parse');
-const contractNumberPattern = /\s{2}(\d+)\s/
 
+function startDataProcessing(folderName) {
+  console.log(folderName)
+  const files = fs.readdirSync(`./${folderName}`)
+  files.forEach((file) => {
+    readPdf(`./${folderName}/${file}`)
+  })
+}
 
-
-function readPdf(fileName) {
-  const pathPdfile = './files/3004298116-04-2023.pdf'
-
+function readPdf(pathPdfile) {
   const dataBuffer = fs.readFileSync(pathPdfile)
   PDFParser(dataBuffer).then((data) => {
-    fs.writeFileSync('./scraps/teste.txt', data.text)
-    const scrapTxtSreadStream = fs.createReadStream('./scraps/teste.txt')
+    const txtName = new Date().getTime()
+    const scrapPath = `./scraps/${txtName}.txt`
+    fs.writeFileSync(scrapPath, data.text)
+    const scrapTxtSreadStream = fs.createReadStream(scrapPath)
     readline.createInterface({
       input: scrapTxtSreadStream,
       terminal: false
@@ -118,4 +123,4 @@ function totalInvoicePrice(line) {
   }
 }
 
-module.exports = readPdf;
+module.exports = startDataProcessing;
