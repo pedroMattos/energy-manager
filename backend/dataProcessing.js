@@ -29,6 +29,7 @@ function readPdf(pathPdfile) {
       const kwh = getKwhOrInjectEnergy(line)
       const hfp = getKwhOrInjectEnergy(line, false)
       const icms = getICMS(line)
+      const compEnergy = getCompensatedEnergy(line)
       const totalInvoicePrice = getTotalInvoicePrice(line)
       const publicEnergyContribution = getPublicEnergyContribution(line)
       if (contractNumber) payloadData.set('contractNumber', contractNumber)
@@ -50,6 +51,11 @@ function readPdf(pathPdfile) {
         payloadData.set('icms', icms.quantity)
         payloadData.set('icmsUnit', icms.unitPrice)
         payloadData.set('icmsPrice', icms.price)
+      }
+      if (compEnergy) {
+        payloadData.set('compEnergy', compEnergy.quantity)
+        payloadData.set('compEnergyUnit', compEnergy.unitPrice)
+        payloadData.set('compEnergyPrice', compEnergy.price)
       }
     }).on('close', () => {
       fs.rm(scrapPath, (error) => {
@@ -120,8 +126,27 @@ function getKwhOrInjectEnergy(line, kwh = true) {
 }
 
 function getICMS(line) {
-  // Após a frase energia eletrica, achar o numero do kwh até o final da linha
+  // Após a palavra ICMSkWh, achar o numero do kwh até o final da linha
   const linePattern =  /ICMSkWh.*?(\d+).*$/gm
+  const matches = line.match(linePattern)
+  if (matches?.length) {
+    // Encontra os valores, buscando tanto por decimais quanto por numeros inteiros separados por
+    // "," ou ".", até espaços em branco terminando no fim da linha
+    const valuesPattern = /(?:\b|(?<=\s))-?\d{1,3}(?:\.\d{3})*(?:,\d+)?(?=\s|$)/g
+    const valuesMatch = line.match(valuesPattern)
+    const values = {
+      quantity: valuesMatch.at(0),
+      unitPrice: valuesMatch.at(1).replace(/[,.]/g, m => (m === ',' ? '.' : '')),
+      price: valuesMatch.at(2).replace(/[,.]/g, m => (m === ',' ? '.' : ''))
+    }
+
+    return values
+  }
+}
+
+function getCompensatedEnergy(line) {
+  // Após a frase Energia compensada GD IkWh, achar o numero do ikwh até o final da linha
+  const linePattern =  /Energia compensada GD IkWh.*?(\d+).*$/gm
   const matches = line.match(linePattern)
   if (matches?.length) {
     // Encontra os valores, buscando tanto por decimais quanto por numeros inteiros separados por

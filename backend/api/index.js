@@ -2,7 +2,6 @@ const pgDbConnection = require('../pgConfig')
 require("dotenv").config()
 
 function setInvoiceData(data) {
-  // console.log(data)
   pgDbConnection('invoice').insert({
     contract_number: data.get('contractNumber'),
     reference_month: data.get('referenceMonth'),
@@ -16,6 +15,9 @@ function setInvoiceData(data) {
     hfp: data.get('hfp'),
     hfp_unit: data.get('hfpUnit'),
     hfp_price: data.get('hfpPrice'),
+    compensated_kwh: data.get('compEnergy'),
+    compensated_kwh_unit: data.get('compEnergyUnit'),
+    compensated_kwh_price: data.get('compEnergyPrice'),
     public_energy_contribution: data.get('publicEnergyContribution'),
     total_invoice_price: data.get('totalInvoicePrice')
   }).then(() => {
@@ -67,6 +69,15 @@ function getInvoicesContributionByOrder(req, res) {
   })
 }
 
+function getInvoicesByDateOrdered(req, res) {
+  const order = req.params.order
+  pgDbConnection('invoice').select('total_invoice_price', 'invoice_due_date')
+  .orderBy([{ column: 'invoice_due_date', order }])
+  .then((data) => {
+    res.send(data)
+  })
+}
+
 module.exports = {
   setInvoiceData,
   getInvoicesData,
@@ -74,5 +85,6 @@ module.exports = {
   getInvoicesHfp,
   getInvoicesIcms,
   getInvoicesPricesByOrder,
-  getInvoicesContributionByOrder
+  getInvoicesContributionByOrder,
+  getInvoicesByDateOrdered
 }

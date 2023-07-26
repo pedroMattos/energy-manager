@@ -18,6 +18,9 @@ function createTableInvoiceAndSartProcess() {
       table.float('hfp')
       table.float('hfp_unit')
       table.float('hfp_price')
+      table.float('compensated_kwh')
+      table.float('compensated_kwh_unit')
+      table.float('compensated_kwh_price')
       table.float('public_energy_contribution')
       table.float('total_invoice_price')
 
