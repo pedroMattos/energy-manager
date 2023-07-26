@@ -7,6 +7,7 @@ function createTableInvoiceAndSartProcess() {
     return pgDbConnection.schema.withSchema('public').createTable('invoice', (table) => {
       table.increments()
       table.bigint('contract_number')
+      table.bigint('instalation_number')
       table.string('reference_month')
       table.bigint('invoice_due_date')
       table.integer('kwh')
