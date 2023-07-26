@@ -94,8 +94,9 @@ function getInvoiceDueDate(line) {
   if(matches?.length) {
     const dateMatch = line.match(datePattern)
     const invoiceDueDate = dateMatch.at(0)
+    const englishDate = `${invoiceDueDate.substring(3,5)}/${invoiceDueDate.substring(0,2)}/${invoiceDueDate.substring(6,10)}`
 
-    return invoiceDueDate
+    return englishDate
   }
 }
 
