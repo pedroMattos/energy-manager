@@ -32,11 +32,13 @@ function readPdf(pathPdfile) {
       const compEnergy = getCompensatedEnergy(line)
       const totalInvoicePrice = getTotalInvoicePrice(line)
       const publicEnergyContribution = getPublicEnergyContribution(line)
+      const instalationNumber = getInstalationNumber(line)
       if (contractNumber) payloadData.set('contractNumber', contractNumber)
       if (referenceMonth) payloadData.set('referenceMonth', referenceMonth)
       if (invoiceDueDate) payloadData.set('invoiceDueDate', invoiceDueDate)
       if (publicEnergyContribution) payloadData.set('publicEnergyContribution', publicEnergyContribution)
       if (totalInvoicePrice) payloadData.set('totalInvoicePrice', totalInvoicePrice)
+      if (instalationNumber) payloadData.set('instalationNumber', instalationNumber)
       if (kwh) {
         payloadData.set('kwh', kwh.quantity)
         payloadData.set('kwhUnit', kwh.unitPrice)
@@ -187,6 +189,18 @@ function getTotalInvoicePrice(line) {
     const totalInvoice = totalInvoicePriceMatch.at(0).replace(/,/, '.')
 
     return totalInvoice
+  }
+}
+
+function getInstalationNumber(line) {
+  const contractAndInstalationNumberLinePattern = /^(\s{2}\d+)/gm
+  const matches = line.match(contractAndInstalationNumberLinePattern)
+  if (matches?.length) {
+    const contractAndInstalationPattern = /\d+/g
+    const instalationNumberMatch = line.match(contractAndInstalationPattern)
+    const instalationNumber = instalationNumberMatch.at(1).trim()
+
+    return instalationNumber
   }
 }
 

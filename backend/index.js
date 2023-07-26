@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const api = require('./api')
+const api = require('./api');
 const app = express();
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -15,6 +15,7 @@ app.get('/get-kwh', api.getInvoicesKwh)
 app.get('/get-hfp', api.getInvoicesHfp)
 app.get('/get-icms', api.getInvoicesIcms)
 app.get('/get-invoices-prices-by-order/:order', api.getInvoicesPricesByOrder)
+app.get('/get-invoices-by-instalation-number/:number', api.getInvoicesByInstalationNumber)
 app.get('/get-invoices-pb-contrib-by-order/:order', api.getInvoicesContributionByOrder)
 app.get('/get-invoices-prices-by-due-date-order/:order', api.getInvoicesByDateOrdered)
 

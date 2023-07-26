@@ -4,6 +4,7 @@ require("dotenv").config()
 function setInvoiceData(data) {
   pgDbConnection('invoice').insert({
     contract_number: data.get('contractNumber'),
+    instalation_number: data.get('instalationNumber'),
     reference_month: data.get('referenceMonth'),
     invoice_due_date: new Date(data.get('invoiceDueDate')).getTime(),
     kwh: data.get('kwh'),
@@ -78,6 +79,15 @@ function getInvoicesByDateOrdered(req, res) {
   })
 }
 
+function getInvoicesByInstalationNumber(req, res) {
+  const number = req.params.number
+  pgDbConnection('invoice').select('*')
+  .where({ instalation_number: number })
+  .then((data) => {
+    res.send(data)
+  })
+}
+
 module.exports = {
   setInvoiceData,
   getInvoicesData,
@@ -86,5 +96,6 @@ module.exports = {
   getInvoicesIcms,
   getInvoicesPricesByOrder,
   getInvoicesContributionByOrder,
-  getInvoicesByDateOrdered
+  getInvoicesByDateOrdered,
+  getInvoicesByInstalationNumber
 }
