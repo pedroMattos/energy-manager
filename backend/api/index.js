@@ -25,11 +25,54 @@ function setInvoiceData(data) {
   })
 }
 
-function getInvoiceData() {
-  return pgDbConnection('invoice').select('*')
+function getInvoicesData(req, res) {
+  pgDbConnection('invoice').select('*').then((data) => {
+    res.send(data)
+  })
+}
+
+function getInvoicesKwh(req, res) {
+  pgDbConnection('invoice').select('kwh', 'kwh_unit', 'kwh_price').then((data) => {
+    res.send(data)
+  })
+}
+
+function getInvoicesHfp(req, res) {
+  pgDbConnection('invoice').select('hfp', 'hfp_unit', 'hfp_price').then((data) => {
+    res.send(data)
+  })
+}
+
+function getInvoicesIcms(req, res) {
+  pgDbConnection('invoice').select('icms', 'icms_unit', 'icms_price').then((data) => {
+    res.send(data)
+  })
+}
+
+function getInvoicesPricesByOrder(req, res) {
+  const order = req.params.order
+  pgDbConnection('invoice').select('total_invoice_price')
+  .orderBy([{ column: 'total_invoice_price', order }])
+  .then((data) => {
+    res.send(data)
+  })
+}
+
+function getInvoicesContributionByOrder(req, res) {
+  const order = req.params.order
+  pgDbConnection('invoice').select('public_energy_contribution')
+  .orderBy([{ column: 'public_energy_contribution', order }])
+  .then((data) => {
+    res.send(data)
+  })
 }
 
 module.exports = {
   setInvoiceData,
-  getInvoiceData
+  getInvoicesData,
+  getInvoicesKwh,
+  getInvoicesHfp,
+  getInvoicesIcms,
+  getInvoicesPricesByOrder,
+  getInvoicesContributionByOrder
 }
