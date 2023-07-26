@@ -16,6 +16,7 @@ app.get('/get-hfp', api.getInvoicesHfp)
 app.get('/get-icms', api.getInvoicesIcms)
 app.get('/get-invoices-prices-by-order/:order', api.getInvoicesPricesByOrder)
 app.get('/get-invoices-pb-contrib-by-order/:order', api.getInvoicesContributionByOrder)
+app.get('/get-invoices-prices-by-due-date-order/:order', api.getInvoicesByDateOrdered)
 
 
 app.listen(process.env.PORT, () => {
