@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment'
 import Sidebar from './Sidebar';
 import { AppWrapper } from './styles';
+import MeditionCard from '../components/cards/meditionCard';
 
 function App() {
   const [value, setValue] = useState();
@@ -16,6 +17,7 @@ function App() {
   return (
     <AppWrapper>
       <Sidebar />
+      <MeditionCard />
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={setValue} />
       </LocalizationProvider>

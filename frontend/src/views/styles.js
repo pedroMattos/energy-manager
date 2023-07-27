@@ -5,4 +5,7 @@ export const AppWrapper = styled.section`
   .echarts-for-react {
     min-width: 100px;
   }
+  p {
+    margin: 0;
+  }
 `
