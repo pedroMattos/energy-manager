@@ -23,7 +23,7 @@ function Dashboard() {
         <p>Todos os meses</p>
         <DashboardMeditions>
           <GraphCard title={'Valor da Fatura por vencimento'} />
-          <GraphCard title={'Economia de energia compensada ou injetada'} />
+          <GraphCard title={'Economia de energia compensada ou injetada'} graph={'money-save'} />
         </DashboardMeditions>
       </DashboardBody>
     </DashboardSection>
