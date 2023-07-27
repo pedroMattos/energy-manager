@@ -1,5 +1,5 @@
 import ReactECharts from 'echarts-for-react';
-import useGraphData from './hooks/useGraphData';
+import useGraphData from './hooks/useInvoiceGraphData';
 import { useEffect } from 'react';
 const options = {
   xAxis: {

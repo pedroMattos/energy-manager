@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 
 
-function useGraphData() {
+function useInvoiceGraphData() {
   const [series, setSeries] = useState(null)
   const [isLoad, setIsLoad] = useState(true)
 
@@ -26,4 +26,4 @@ function useGraphData() {
   return { series, isLoad }
 }
 
-export default useGraphData
+export default useInvoiceGraphData
