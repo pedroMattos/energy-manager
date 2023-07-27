@@ -1,7 +1,11 @@
-import { SidebarContainer } from "./styles"
+import { FakeLogo, SidebarContainer, SidebarHeader } from "./styles"
 
 function Sidebar() {
-  return (<SidebarContainer />)
+  return (<SidebarContainer >
+    <SidebarHeader>
+      <FakeLogo>Splash</FakeLogo>
+    </SidebarHeader>
+  </SidebarContainer>)
 }
 
 export default Sidebar
