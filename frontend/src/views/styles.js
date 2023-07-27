@@ -7,6 +7,15 @@ export const AppWrapper = styled.section`
   }
 `
 
+export const PageSection = styled.section`
+  padding: 20px;
+  width: 100%;
+`
+
+export const PageHeader = styled.div`
+  margin-bottom: 40px;
+`
+
 export const PageTitle = styled.h1`
   margin-bottom: 5px;
   font-size: 26px;
