@@ -61,6 +61,15 @@ function getInvoicesPricesByOrder(req, res) {
   })
 }
 
+function getMoneySavePricesByOrder(req, res) {
+  const order = req.params.order
+  pgDbConnection('invoice').select('hfp_price', 'compensated_kwh_price')
+  .orderBy([{ column: 'invoice_due_date', order }])
+  .then((data) => {
+    res.send(data)
+  })
+}
+
 function getInvoicesContributionByOrder(req, res) {
   const order = req.params.order
   pgDbConnection('invoice').select('public_energy_contribution')
@@ -124,5 +133,6 @@ module.exports = {
   getInvoicesByInstalationNumber,
   getLastkWhConsumption,
   getLastInvoicePrice,
-  getLastMoneySave
+  getLastMoneySave,
+  getMoneySavePricesByOrder
 }
