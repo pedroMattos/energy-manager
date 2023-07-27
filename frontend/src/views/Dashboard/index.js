@@ -1,9 +1,12 @@
 import GraphCard from "../../components/cards/graphCard";
 import MeditionCard from "../../components/cards/meditionCard";
 import { PageTitle } from "../styles";
+import useMeditions from "./hooks/useMeditions";
 import { DashboardBody, DashboardHeader, DashboardMeditions, DashboardSection } from "./styles";
 
 function Dashboard() {
+  const { meditions, isLoad } = useMeditions()
+
   return (
     <DashboardSection>
       <DashboardHeader>
@@ -13,9 +16,9 @@ function Dashboard() {
       <p>Último mês</p>
       <DashboardBody>
         <DashboardMeditions>
-          <MeditionCard title={'Consumo de energia (kWh)'} value={100} unit={'kWh'} />
-          <MeditionCard title={'Consumo de energia (kWh)'} value={100} unit={'R$'} />
-          <MeditionCard title={'Consumo de energia (kWh)'} value={100} unit={'R$'} />
+          {!isLoad && meditions.map((medition) => {
+            return <MeditionCard key={medition.value} title={medition.title} value={medition.value} unit={medition.unit} />
+          })}
         </DashboardMeditions>
         <p>Todos os meses</p>
         <DashboardMeditions>
