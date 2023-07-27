@@ -1,26 +1,38 @@
 import ReactECharts from 'echarts-for-react';
+import useGraphData from './hooks/useGraphData';
+import { useEffect } from 'react';
 const options = {
   xAxis: {
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    data: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun']
   },
   yAxis: {
     type: 'value'
   },
-  series: [
-    {
-      data: [120, 200, 150, 80, 70, 110, 130],
-      type: 'bar',
-      showBackground: true,
-      backgroundStyle: {
-        color: 'rgba(180, 180, 180, 0.2)'
-      }
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
     }
+  },
+  series: [
+    { data: [], type: 'bar' }
   ]
-};
+}
 
 function InvoiceBarGraph() {
-  return <ReactECharts option={options} />
+  const { series, isLoad } = useGraphData()
+
+  useEffect(() => {
+    if (!isLoad) options.series.at(0).data = series
+
+  }, [isLoad, series])
+
+  return (
+    <>
+      {!isLoad && <ReactECharts option={options} />}
+    </>
+  )
 }
 
 export default InvoiceBarGraph
