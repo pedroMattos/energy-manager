@@ -10,9 +10,6 @@ function useMoneySaveGraphData() {
     const { data } = await axios.get('http://localhost:5000/get-money-save-by-date-order/asc')
 
     setIsLoad(false)
-    
-
-    console.log(data)
     setSeries(() => prepareMoneySave(data))
   }
 

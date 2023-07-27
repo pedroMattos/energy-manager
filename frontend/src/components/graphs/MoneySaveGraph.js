@@ -29,8 +29,6 @@ function MoneySaveGraph() {
       options.series.at(0).data = series.hfp
       options.series.at(1).data = series.compensated
     }
-    console.log(options)
-
   }, [isLoad, series])
 
   return (
