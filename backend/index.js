@@ -20,6 +20,7 @@ app.get('/get-invoices-pb-contrib-by-order/:order', api.getInvoicesContributionB
 app.get('/get-money-save-by-date-order/:order', api.getMoneySavePricesByOrder)
 app.get('/get-invoices-prices-by-due-date-order/:order', api.getInvoicesByDateOrdered)
 app.get('/get-most-recent-kWh', api.getLastkWhConsumption)
+app.get('/get-contract-number', api.getContractNumber)
 app.get('/get-most-recent-invoice-price', api.getLastInvoicePrice)
 app.get('/get-most-recent-money-save', api.getLastMoneySave)
 

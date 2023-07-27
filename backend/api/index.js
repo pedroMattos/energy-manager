@@ -121,6 +121,13 @@ function getLastMoneySave(req, res) {
   })
 }
 
+function getContractNumber(req, res) {
+  pgDbConnection('invoice').first('contract_number')
+  .then((data) => {
+    res.send(data)
+  })
+}
+
 module.exports = {
   setInvoiceData,
   getInvoicesData,
@@ -134,5 +141,6 @@ module.exports = {
   getLastkWhConsumption,
   getLastInvoicePrice,
   getLastMoneySave,
-  getMoneySavePricesByOrder
+  getMoneySavePricesByOrder,
+  getContractNumber
 }
