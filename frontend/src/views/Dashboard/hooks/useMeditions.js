@@ -12,7 +12,7 @@ function useMeditions() {
     const { data: moneySave } = await axios.get('http://localhost:5000/get-most-recent-money-save')
 
     setIsLoad(false)
-    return setMeditions([mountKWh(kwh), mountInvoicePrice(invoicePrice), mountMoneySave(moneySave)])
+    setMeditions([mountKWh(kwh), mountInvoicePrice(invoicePrice), mountMoneySave(moneySave)])
   }
 
   const mountKWh = (value) => ({
