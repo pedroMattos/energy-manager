@@ -1,9 +1,11 @@
 import { CardHeader, CardWrapper } from "./styles"
 
-function MeditionCard() {
-  return <CardWrapper>
-    <CardHeader><p>Consumo de energia (kWh)</p></CardHeader>
-  </CardWrapper>
+function MeditionCard({ title, iconName, value }) {
+  return (
+    <CardWrapper>
+      <CardHeader><p>{title}</p></CardHeader>
+    </CardWrapper>
+  )
 }
 
 export default MeditionCard

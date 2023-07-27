@@ -8,6 +8,10 @@ export const CardHeader = styled.div`
 export const CardWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid #D9D9D9;
-  min-width: 380px;
+  max-width: 320px;
+  width: 100%;
   height: 220px;
+  @media (max-width: 800px) {
+    max-width: 600px;
+  }
 `
