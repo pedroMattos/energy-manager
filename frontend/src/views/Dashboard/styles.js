@@ -11,6 +11,7 @@ export const DashboardMeditions = styled.div`
   margin-top: 10px;
   justify-content: center;
   justify-content: space-between;
+  margin-bottom: 40px;
 `
 
 export const DashboardBody = styled.div`
