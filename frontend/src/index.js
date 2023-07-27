@@ -7,14 +7,20 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
+import { AppWrapper } from './views/styles';
+import Sidebar from './views/Sidebar';
+import Dashboard from './views/Dashboard';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <React.StrictMode>
-        <App />
-    </React.StrictMode>
+        <AppWrapper>
+          <Sidebar />
+          <Dashboard />
+        </AppWrapper>
+      </React.StrictMode>
     ),
   },
 ]);
