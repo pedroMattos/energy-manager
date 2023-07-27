@@ -1,5 +1,5 @@
 const pgDbConnection = require('../pgConfig')
-const dataProcessing = require('../src/dataProcessing')
+const dataProcessing = require('../dataProcessing')
 
 function createTableInvoiceAndSartProcess() {
   pgDbConnection.schema.withSchema('public').hasTable('invoice').then((exists) => {
@@ -25,7 +25,7 @@ function createTableInvoiceAndSartProcess() {
       table.float('public_energy_contribution')
       table.float('total_invoice_price')
 
-      dataProcessing("files")
+      dataProcessing(process.env.FILES_FOLDER_NAME)
     })
   }).catch((error) => {
     console.error(error)
