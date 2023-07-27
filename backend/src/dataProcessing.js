@@ -1,7 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const PDFParser = require('pdf-parse');
-const api = require('./api')
+const api = require('../api')
 
 function startDataProcessing(folderName) {
   console.log(folderName)

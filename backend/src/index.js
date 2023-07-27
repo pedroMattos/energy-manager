@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const api = require('./api');
+const api = require('../api');
 const app = express();
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -8,7 +8,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
-require('./migrations/createTableInvoiceAndSartProcess')()
+require('../migrations/createTableInvoiceAndSartProcess')()
 
 app.get('/get-all-invoices', api.getInvoicesData)
 app.get('/get-kwh', api.getInvoicesKwh)

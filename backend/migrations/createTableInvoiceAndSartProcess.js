@@ -1,5 +1,5 @@
 const pgDbConnection = require('../pgConfig')
-const dataProcessing = require('../dataProcessing')
+const dataProcessing = require('../src/dataProcessing')
 
 function createTableInvoiceAndSartProcess() {
   pgDbConnection.schema.withSchema('public').hasTable('invoice').then((exists) => {
