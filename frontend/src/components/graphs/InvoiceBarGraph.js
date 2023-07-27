@@ -1,18 +1,4 @@
-import ReactEChartsCore from 'echarts-for-react/lib/core';
-import * as echarts from 'echarts/core';
-import { BarChart } from 'echarts/charts'
-import {
-  CanvasRenderer,
-} from 'echarts/renderers';
-
-import {
-  GridComponent,
-  TooltipComponent,
-  TitleComponent,
-} from 'echarts/components';
-echarts.use(
-  [TitleComponent, TooltipComponent, GridComponent, BarChart, CanvasRenderer]
-);
+import ReactECharts from 'echarts-for-react';
 const options = {
   xAxis: {
     type: 'category',
@@ -34,11 +20,7 @@ const options = {
 };
 
 function InvoiceBarGraph() {
-  return <ReactEChartsCore
-    echarts={echarts}
-    option={options}
-    lazyUpdate={true}
-  />
+  return <ReactECharts option={options} />
 }
 
 export default InvoiceBarGraph
