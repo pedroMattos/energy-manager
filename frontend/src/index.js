@@ -23,6 +23,10 @@ const router = createBrowserRouter([
       </React.StrictMode>
     ),
   },
+  {
+    path: "/history",
+    element: (<p>Teste</p>)
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
