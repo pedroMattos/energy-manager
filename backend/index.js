@@ -25,6 +25,6 @@ app.get('/get-most-recent-invoice-price', api.getLastInvoicePrice)
 app.get('/get-most-recent-money-save', api.getLastMoneySave)
 
 
-app.listen(process.env.PORT, () => {
+app.listen(5000, () => {
   console.log('Backend executando...', process.env.PORT)
 })

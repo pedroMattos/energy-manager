@@ -25,7 +25,7 @@ function createTableInvoiceAndSartProcess() {
       table.float('public_energy_contribution')
       table.float('total_invoice_price')
 
-      dataProcessing(process.env.FILES_FOLDER_NAME)
+      dataProcessing("files")
     })
   }).catch((error) => {
     console.error(error)
