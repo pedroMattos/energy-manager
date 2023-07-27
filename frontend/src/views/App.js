@@ -11,10 +11,9 @@ import MeditionCard from '../components/cards/meditionCard';
 import Dashboard from './Dashboard';
 
 function App() {
-  const [value, setValue] = useState();
-  useEffect(() => {
-    console.log(moment(value).locale('pt-br').format('MMM/YYYY'))
-  }, [value])
+  // useEffect(() => {
+  //   console.log(moment(value).locale('pt-br').format('MMM/YYYY'))
+  // }, [value])
   return (
     <AppWrapper>
       <Sidebar />
