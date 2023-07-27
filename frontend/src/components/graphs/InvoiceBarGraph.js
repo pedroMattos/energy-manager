@@ -1,8 +1,8 @@
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
-import { PieChart } from 'echarts/charts'
+import { BarChart } from 'echarts/charts'
 import {
-  SVGRenderer,
+  CanvasRenderer,
 } from 'echarts/renderers';
 
 import {
@@ -11,48 +11,24 @@ import {
   TitleComponent,
 } from 'echarts/components';
 echarts.use(
-  [TitleComponent, TooltipComponent, GridComponent, PieChart, SVGRenderer]
+  [TitleComponent, TooltipComponent, GridComponent, BarChart, CanvasRenderer]
 );
 const options = {
-  tooltip: {
-    trigger: 'item'
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
-  legend: {
-    top: '5%',
-    left: 'center'
+  yAxis: {
+    type: 'value'
   },
   series: [
     {
-      name: 'Access From',
-      type: 'pie',
-      radius: ['40%', '70%'],
-      avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 10,
-        borderColor: '#fff',
-        borderWidth: 2
-      },
-      label: {
-        show: false,
-        position: 'center'
-      },
-      emphasis: {
-        label: {
-          show: true,
-          fontSize: 40,
-          fontWeight: 'bold'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
-      ]
+      data: [120, 200, 150, 80, 70, 110, 130],
+      type: 'bar',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(180, 180, 180, 0.2)'
+      }
     }
   ]
 };
@@ -61,7 +37,6 @@ function InvoiceBarGraph() {
   return <ReactEChartsCore
     echarts={echarts}
     option={options}
-    notMerge={true}
     lazyUpdate={true}
   />
 }
