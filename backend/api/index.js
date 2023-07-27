@@ -88,6 +88,30 @@ function getInvoicesByInstalationNumber(req, res) {
   })
 }
 
+function getLastkWhConsumption(req, res) {
+  pgDbConnection('invoice').select('kwh')
+  .orderBy([{ column: 'invoice_due_date', order: 'asc' }])
+  .then((data) => {
+    res.send(data.at(-1))
+  })
+}
+
+function getLastInvoicePrice(req, res) {
+  pgDbConnection('invoice').select('total_invoice_price')
+  .orderBy([{ column: 'invoice_due_date', order: 'asc' }])
+  .then((data) => {
+    res.send(data.at(-1))
+  })
+}
+
+function getLastMoneySave(req, res) {
+  pgDbConnection('invoice').select('hfp_price', 'compensated_kwh_price')
+  .orderBy([{ column: 'invoice_due_date', order: 'asc' }])
+  .then((data) => {
+    res.send(data.at(-1))
+  })
+}
+
 module.exports = {
   setInvoiceData,
   getInvoicesData,
@@ -97,5 +121,8 @@ module.exports = {
   getInvoicesPricesByOrder,
   getInvoicesContributionByOrder,
   getInvoicesByDateOrdered,
-  getInvoicesByInstalationNumber
+  getInvoicesByInstalationNumber,
+  getLastkWhConsumption,
+  getLastInvoicePrice,
+  getLastMoneySave
 }

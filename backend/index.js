@@ -18,6 +18,9 @@ app.get('/get-invoices-prices-by-order/:order', api.getInvoicesPricesByOrder)
 app.get('/get-invoices-by-instalation-number/:number', api.getInvoicesByInstalationNumber)
 app.get('/get-invoices-pb-contrib-by-order/:order', api.getInvoicesContributionByOrder)
 app.get('/get-invoices-prices-by-due-date-order/:order', api.getInvoicesByDateOrdered)
+app.get('/get-most-recent-kWh', api.getLastkWhConsumption)
+app.get('/get-most-recent-invoice-price', api.getLastInvoicePrice)
+app.get('/get-most-recent-money-save', api.getLastMoneySave)
 
 
 app.listen(process.env.PORT, () => {
