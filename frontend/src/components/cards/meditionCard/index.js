@@ -1,10 +1,14 @@
-import { CardHeader, CardWrapper } from "./styles"
+import { CardBody, CardHeader } from "../styles"
+import { CardValue, CardMeditionWrapper } from "./styles"
 
-function MeditionCard({ title, iconName, value }) {
+function MeditionCard({ title, iconName, value, unit }) {
   return (
-    <CardWrapper>
+    <CardMeditionWrapper>
       <CardHeader><p>{title}</p></CardHeader>
-    </CardWrapper>
+      <CardBody>
+        <CardValue>{value} {unit}</CardValue>
+      </CardBody>
+    </CardMeditionWrapper>
   )
 }
 

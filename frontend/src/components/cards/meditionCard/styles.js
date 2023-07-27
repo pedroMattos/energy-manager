@@ -1,17 +1,15 @@
 import { styled } from "styled-components";
+import { CardWrapper } from "../styles";
 
-export const CardHeader = styled.div`
-  padding: 16px;
-  border-bottom: 1px solid #D9D9D9;
-`
-
-export const CardWrapper = styled.div`
-  border-radius: 5px;
-  border: 1px solid #D9D9D9;
+export const CardMeditionWrapper = styled(CardWrapper)`
   max-width: 320px;
-  width: 100%;
   height: 220px;
   @media (max-width: 800px) {
     max-width: 600px;
   }
+`
+
+export const CardValue = styled.p`
+  font-size: 32px;
+  font-weight: 700;
 `
