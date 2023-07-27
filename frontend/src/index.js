@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './views/App';
 import reportWebVitals from './reportWebVitals';
 import {
   RouterProvider,
@@ -10,6 +9,7 @@ import {
 import { AppWrapper } from './views/styles';
 import Sidebar from './views/Sidebar';
 import Dashboard from './views/Dashboard';
+import InvoiceHistory from './views/InvoiceHistory';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/history",
-    element: (<p>Teste</p>)
+    element: (
+      <React.StrictMode>
+        <AppWrapper>
+          <Sidebar />
+          <InvoiceHistory />
+        </AppWrapper>
+      </React.StrictMode>
+    )
   }
 ]);
 
