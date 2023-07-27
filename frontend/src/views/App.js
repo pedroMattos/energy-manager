@@ -8,6 +8,7 @@ import moment from 'moment'
 import Sidebar from './Sidebar';
 import { AppWrapper } from './styles';
 import MeditionCard from '../components/cards/meditionCard';
+import Dashboard from './Dashboard';
 
 function App() {
   const [value, setValue] = useState();
@@ -17,11 +18,14 @@ function App() {
   return (
     <AppWrapper>
       <Sidebar />
-      <MeditionCard />
-      <LocalizationProvider dateAdapter={AdapterMoment}>
+      <Dashboard />
+      {/* <MeditionCard title={'Consumo de energia (kWh)'} value={100} />
+      <MeditionCard title={'Consumo de energia (kWh)'} value={100} />
+      <MeditionCard title={'Consumo de energia (kWh)'} value={100} /> */}
+      {/* <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={setValue} />
       </LocalizationProvider>
-      <InvoiceBarGraph />
+      <InvoiceBarGraph /> */}
     </AppWrapper>
   );
 }
