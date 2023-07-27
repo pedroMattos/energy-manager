@@ -9,7 +9,11 @@ export const SidebarContainer = styled.aside`
 
 export const SidebarHeader = styled.div`
   height: 80px;
-  `
+`
+
+export const SidebarBody = styled.div`
+  
+`
   
 export const FakeLogo = styled.p`
   margin: 0;
