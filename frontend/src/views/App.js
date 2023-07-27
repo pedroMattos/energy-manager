@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import '../App.css';
+import InvoiceBarGraph from '../components/graphs/InvoiceBarGraph'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { useEffect, useState } from 'react';
+import moment from 'moment'
+import Sidebar from './Sidebar';
+import { AppWrapper } from './styles';
 
 function App() {
+  const [value, setValue] = useState();
+  useEffect(() => {
+    console.log(moment(value).locale('pt-br').format('MMM/YYYY'))
+  }, [value])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <Sidebar />
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={setValue} />
+      </LocalizationProvider>
+      <InvoiceBarGraph />
+    </AppWrapper>
   );
 }
 
