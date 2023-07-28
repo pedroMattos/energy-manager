@@ -1,16 +1,16 @@
 import GraphCard from "../../components/cards/graphCard";
 import MeditionCard from "../../components/cards/meditionCard";
 import { PageHeader, PageSection, PageTitle } from "../styles";
-import useContractNumber from "../hooks/useContractNumber";
 import useMeditions from "./hooks/useMeditions";
 import { DashboardMeditions } from "./styles";
 import HistoryEmptyState from "../../components/emptyStates/SimpleEmptyState";
+import useContractNumber from "../hooks/useContractNumber";
 
 function Dashboard() {
   const { meditions, isLoad } = useMeditions()
   const { contractNumber, isLoad: isLoadContractNumber } = useContractNumber()
 
-  if (!isLoad && meditions.length) return <HistoryEmptyState />
+  if (!isLoad && !meditions.length) return <HistoryEmptyState />
   return (
     <PageSection>
       <PageHeader>
