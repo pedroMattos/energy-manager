@@ -1,18 +1,23 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
+import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material"
 import useContractNumber from "../hooks/useContractNumber"
 import { PageHeader, PageSection, PageTitle } from "../styles"
-import { GroupBySelectors } from "./styles"
+import { GroupBySelectors, GroupTitle } from "./styles"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
 import { useState } from "react"
 import moment from "moment"
+import Search from '@mui/icons-material/Search'
 import InvoiceHistoryTable from "../../components/Tables/InvoiceHistoryTable"
+import useTableValues from "./hooks/useTableValues"
 
 function InvoiceHistory() {
   const { contractNumber, isLoad: isLoadContractNumber } = useContractNumber()
+  const { tableValues, isLoad } = useTableValues()
   const [dateValue, setDateValue] = useState(null)
+  const [selection, setSelection] = useState(null)
 
   const handleDateChange = (value) => setDateValue(moment(value).locale('pt-br').format('MMM/YYYY'))
+  const handleChangeSelection = (value) => setSelection(value.target.value)
   return (
     <PageSection>
       <PageHeader>
@@ -20,23 +25,27 @@ function InvoiceHistory() {
         {!isLoadContractNumber && <p>Contrato: {contractNumber}</p>}
       </PageHeader>
       <GroupBySelectors>
-        <p>Agrupar Por</p>
+        <GroupTitle>Agrupar Por</GroupTitle>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Selecione</InputLabel>
           <Select
             labelId="simple-select-label"
             label="Selecione"
-            // onChange={handleChange}
+            value={selection}
+            onChange={handleChangeSelection}
           >
-            <MenuItem value={10}>Unidade Consumidora</MenuItem>
-            <MenuItem value={20}>Mês e ano</MenuItem>
+            <MenuItem value={'unit'}>Unidade Consumidora</MenuItem>
+            <MenuItem value={'month'}>Mês e ano</MenuItem>
           </Select>
         </FormControl>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
+        {selection === 'month' && <LocalizationProvider dateAdapter={AdapterMoment}>
           <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={handleDateChange} />
-        </LocalizationProvider>
+        </LocalizationProvider>}
+        <IconButton aria-label="search" color="primary">
+          <Search />
+        </IconButton>
       </GroupBySelectors>
-      <InvoiceHistoryTable />
+      {isLoad && <InvoiceHistoryTable dataTable={tableValues} />}
     </PageSection>
   )
 }
