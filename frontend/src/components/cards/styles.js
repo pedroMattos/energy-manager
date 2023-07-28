@@ -17,6 +17,13 @@ export const CardWrapper = styled.div`
   }
 `
 
+export const Actions = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 10px;
+`
+
 export const CardBody = styled.div`
   display: flex;
   justify-content: center;
