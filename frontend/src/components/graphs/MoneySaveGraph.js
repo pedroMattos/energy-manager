@@ -16,8 +16,8 @@ const options = {
     }
   },
   series: [
-    { data: [], type: 'bar', name: 'HFP Injetado' },
-    { data: [], type: 'bar', name: 'Energia compensada' }
+    { data: [0, 0, 0, 0, 0, 0], type: 'bar', name: 'HFP Injetado' },
+    { data: [0, 0, 0, 0, 0, 0], type: 'bar', name: 'Energia compensada' }
   ]
 }
 
