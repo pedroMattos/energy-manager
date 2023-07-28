@@ -11,6 +11,7 @@ export const CardWrapper = styled.div`
   max-width: 320px;
   width: 100%;
   height: 220px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
   @media (max-width: 800px) {
     max-width: 600px;
   }
@@ -19,5 +20,11 @@ export const CardWrapper = styled.div`
 export const CardBody = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 30px;
+  align-items: center;
+  gap: 30px;
+  svg {
+    width: 80px;
+    height: 100px;
+  }
 `

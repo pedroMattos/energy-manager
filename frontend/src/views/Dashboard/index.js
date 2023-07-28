@@ -19,7 +19,13 @@ function Dashboard() {
       <div>
         <DashboardMeditions>
           {!isLoad && meditions.map((medition) => {
-            return <MeditionCard key={medition.value} title={medition.title} value={medition.value} unit={medition.unit} />
+            return <MeditionCard
+                key={medition.value}
+                title={medition.title}
+                value={medition.value}
+                unit={medition.unit}
+                icon={medition.icon}
+              />
           })}
         </DashboardMeditions>
         <p>Todos os meses</p>
