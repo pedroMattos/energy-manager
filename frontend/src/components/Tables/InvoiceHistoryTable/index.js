@@ -1,8 +1,11 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import usePrepareTableData from "./hooks/usePrepareTableData";
+import SimpleEmptyState from "../../emptyStates/SimpleEmptyState";
 
 function InvoiceHistoryTable({ dataTable }) {
   const data = usePrepareTableData(dataTable)
+
+  if (!dataTable.length) return (<SimpleEmptyState />)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -19,7 +22,7 @@ function InvoiceHistoryTable({ dataTable }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataTable.length ? data?.map((row, index) => (
+          {data?.map((row, index) => (
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -35,7 +38,7 @@ function InvoiceHistoryTable({ dataTable }) {
               <TableCell align="right">{row.hfp}</TableCell>
               <TableCell align="right">{row.compensated}</TableCell>
             </TableRow>
-          )) : <p>Nenhum dado encontrado</p>}
+          ))}
         </TableBody>
       </Table>
   </TableContainer>

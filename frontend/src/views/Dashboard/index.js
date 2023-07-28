@@ -4,11 +4,13 @@ import { PageHeader, PageSection, PageTitle } from "../styles";
 import useContractNumber from "../hooks/useContractNumber";
 import useMeditions from "./hooks/useMeditions";
 import { DashboardMeditions } from "./styles";
+import HistoryEmptyState from "../../components/emptyStates/SimpleEmptyState";
 
 function Dashboard() {
   const { meditions, isLoad } = useMeditions()
   const { contractNumber, isLoad: isLoadContractNumber } = useContractNumber()
 
+  if (!isLoad && meditions.length) return <HistoryEmptyState />
   return (
     <PageSection>
       <PageHeader>

@@ -25,7 +25,7 @@ function InvoiceHistory() {
         {!isLoadContractNumber && <p>Contrato: {contractNumber}</p>}
       </PageHeader>
       <GroupBySelectors>
-        <GroupTitle>Agrupar Por</GroupTitle>
+        <GroupTitle>Buscar Por</GroupTitle>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Selecione</InputLabel>
           <Select
