@@ -1,7 +1,8 @@
 import ContractCard from "../../components/cards/contractCard"
+import EmptyCard from "../../components/cards/emptyCard"
 import useContracts from "../../hooks/useContracts"
 import { PageTitle } from "../styles"
-import { HubPageWrapper } from "./styles"
+import { CardsContainer, HubPageWrapper } from "./styles"
 
 function HubPage() {
   const { isLoading, contracts } = useContracts()
@@ -11,9 +12,10 @@ function HubPage() {
         <PageTitle>Bem vindo(a) ao seu gerenciador de faturas</PageTitle>
         <p>Acesse suas faturas pela conta contrato</p>
       </div>
-      <div>
+      <CardsContainer>
         {!isLoading && contracts?.map((contract) => <ContractCard key={contract.id} contractNumber={contract.number} />)}
-      </div>
+        <EmptyCard />
+      </CardsContainer>
     </HubPageWrapper>
   )
 }

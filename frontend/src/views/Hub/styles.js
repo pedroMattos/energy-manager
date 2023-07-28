@@ -8,4 +8,11 @@ export const HubPageWrapper = styled(PageSection)`
   justify-content: center;
   height: 100vh;
   padding: 0;
+  flex-direction: column;
+  gap: 20px;
+`
+
+export const CardsContainer = styled.div`
+  display: flex;
+  gap: 20px;
 `

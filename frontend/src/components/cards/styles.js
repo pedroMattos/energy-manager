@@ -2,7 +2,13 @@ import { styled } from "styled-components";
 
 export const CardHeader = styled.div`
   padding: 16px;
-  border-bottom: 1px solid #D9D9D9;
+  user-select: none;
+  ${({ $withouBorder }) => $withouBorder ? 'boder-bottom: 0px;' : 'border-bottom: 1px solid #D9D9D9;'}
+  ${({ $center }) => $center ? `
+  p {
+    text-align: center;
+  }
+  ` : ''}
 `
 
 export const CardWrapper = styled.div`
@@ -34,6 +40,8 @@ export const CardBody = styled.div`
     width: 80px;
     height: 100px;
   }
+  user-select: none;
+  ${({ $customWidth }) => $customWidth ? `width: ${$customWidth};` : ''}
   ${({ $vertical }) => $vertical ? `
   flex-direction: column;
   align-items: flex-start;
