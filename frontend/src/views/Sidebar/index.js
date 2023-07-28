@@ -11,7 +11,7 @@ function Sidebar() {
       </SidebarHeader>
 
       <List component="nav">
-        <ListItemButton onClick={() => navigate('/')}>
+        <ListItemButton onClick={() => navigate('/dashboard')}>
           <ListItemText sx={{ color: 'white' }} primary="Dashboard" />
         </ListItemButton>
         <Divider />
