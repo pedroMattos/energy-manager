@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { CardBody, CardHeader, CardWrapper } from "../styles";
 
 export const CardGraphWrapper = styled(CardWrapper)`
-  max-width: 500px;
+  max-width: 490px;
   height: 400px;
   @media (max-width: 800px) {
     max-width: 600px;
