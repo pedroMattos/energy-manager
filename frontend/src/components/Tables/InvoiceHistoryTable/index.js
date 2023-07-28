@@ -1,18 +1,9 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import usePrepareTableData from "./hooks/usePrepareTableData";
 
-function createData(instalationNumber, totalPrice, month, dueDate, kWh, icms, hfp, compensated) {
-  return { instalationNumber, totalPrice, month, dueDate, kWh, icms, hfp, compensated };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function InvoiceHistoryTable() {
+function InvoiceHistoryTable({ dataTable }) {
+  const data = usePrepareTableData(dataTable)
+  console.log(data)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -29,9 +20,9 @@ function InvoiceHistoryTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data?.map((row) => (
             <TableRow
-              key={row.instalationNumber}
+              key={row.dueDate}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -41,6 +32,9 @@ function InvoiceHistoryTable() {
               <TableCell align="right">{row.month}</TableCell>
               <TableCell align="right">{row.dueDate}</TableCell>
               <TableCell align="right">{row.kWh}</TableCell>
+              <TableCell align="right">{row.icms}</TableCell>
+              <TableCell align="right">{row.hfp}</TableCell>
+              <TableCell align="right">{row.compensated}</TableCell>
             </TableRow>
           ))}
         </TableBody>
