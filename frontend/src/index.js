@@ -10,10 +10,21 @@ import { AppWrapper } from './views/styles';
 import Sidebar from './views/Sidebar';
 import Dashboard from './views/Dashboard';
 import InvoiceHistory from './views/InvoiceHistory';
+import HubPage from './views/Hub';
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: (
+      <React.StrictMode>
+        <AppWrapper>
+          <HubPage />
+        </AppWrapper>
+      </React.StrictMode>
+    ),
+  },
+  {
+    path: "/dashboard",
     element: (
       <React.StrictMode>
         <AppWrapper>

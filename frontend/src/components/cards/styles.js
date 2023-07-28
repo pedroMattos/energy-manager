@@ -27,4 +27,11 @@ export const CardBody = styled.div`
     width: 80px;
     height: 100px;
   }
+  ${({ $vertical }) => $vertical ? `
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  padding: 10px;
+  gap: 0;
+  ` : ''}
 `
