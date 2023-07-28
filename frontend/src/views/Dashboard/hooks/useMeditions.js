@@ -6,13 +6,14 @@ import SaveMoneyIcon from '@mui/icons-material/Wallet'
 
 
 function useMeditions() {
+  const contractNumber = localStorage.getItem('contractNumber')
   const [meditions, setMeditions] = useState(null)
   const [isLoad, setIsLoad] = useState(true)
 
   const getMeditions = async () => {
-    const { data: kwh } = await axios.get('http://localhost:5000/get-most-recent-kWh')
-    const { data: invoicePrice } = await axios.get('http://localhost:5000/get-most-recent-invoice-price')
-    const { data: moneySave } = await axios.get('http://localhost:5000/get-most-recent-money-save')
+    const { data: kwh } = await axios.get(`http://localhost:5000/get-most-recent-kWh/${contractNumber}`)
+    const { data: invoicePrice } = await axios.get(`http://localhost:5000/get-most-recent-invoice-price/${contractNumber}`)
+    const { data: moneySave } = await axios.get(`http://localhost:5000/get-most-recent-money-save/${contractNumber}`)
 
     setIsLoad(false)
     setMeditions([mountKWh(kwh), mountInvoicePrice(invoicePrice), mountMoneySave(moneySave)])

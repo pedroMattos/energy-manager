@@ -3,11 +3,12 @@ import axios from 'axios'
 
 
 function useMoneySaveGraphData() {
+  const contractNumber = localStorage.getItem('contractNumber')
   const [series, setSeries] = useState(null)
   const [isLoad, setIsLoad] = useState(true)
 
   const getMoneySave = async () => {
-    const { data } = await axios.get('http://localhost:5000/get-money-save-by-date-order/asc')
+    const { data } = await axios.get(`http://localhost:5000/get-money-save-by-date-order/asc/${contractNumber}`)
 
     setIsLoad(false)
     setSeries(() => prepareMoneySave(data))

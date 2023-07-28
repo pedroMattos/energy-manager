@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import axios from 'axios'
 
 
 function useContractNumber() {
@@ -7,10 +6,8 @@ function useContractNumber() {
   const [isLoad, setIsLoad] = useState(true)
 
   const getContractumber = async () => {
-    const { data } = await axios.get('http://localhost:5000/get-contract-number')
-
     setIsLoad(false)
-    setContractNumber(data.contract_number)
+    setContractNumber(localStorage.getItem('contractNumber'))
   }
 
   useEffect(() => {
