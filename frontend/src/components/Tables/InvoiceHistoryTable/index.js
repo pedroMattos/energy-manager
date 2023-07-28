@@ -3,7 +3,6 @@ import usePrepareTableData from "./hooks/usePrepareTableData";
 
 function InvoiceHistoryTable({ dataTable }) {
   const data = usePrepareTableData(dataTable)
-  console.log(data)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -20,9 +19,9 @@ function InvoiceHistoryTable({ dataTable }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((row) => (
+          {dataTable.length ? data?.map((row, index) => (
             <TableRow
-              key={row.dueDate}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -36,7 +35,7 @@ function InvoiceHistoryTable({ dataTable }) {
               <TableCell align="right">{row.hfp}</TableCell>
               <TableCell align="right">{row.compensated}</TableCell>
             </TableRow>
-          ))}
+          )) : <p>Nenhum dado encontrado</p>}
         </TableBody>
       </Table>
   </TableContainer>

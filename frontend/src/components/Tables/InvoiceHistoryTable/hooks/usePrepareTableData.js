@@ -7,7 +7,7 @@ function usePrepareTableData(data) {
       return {
         instalationNumber: row.instalation_number,
         totalPrice: `R$ ${row.total_invoice_price}`,
-        month: row.reference_month,
+        month: moment(parseInt(row.reference_month)).format('MMM/YYYY'),
         dueDate: moment(parseInt(row.invoice_due_date)).format('DD/MM/YYYY'),
         kWh: row.kwh,
         icms: `R$ ${row.icms_price ?? 0}`,

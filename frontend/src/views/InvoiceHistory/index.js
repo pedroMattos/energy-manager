@@ -12,9 +12,9 @@ import useTableValues from "./hooks/useTableValues"
 
 function InvoiceHistory() {
   const { contractNumber, isLoad: isLoadContractNumber } = useContractNumber()
-  const { tableValues, isLoad } = useTableValues()
+  const { tableValues, isLoad, handleFindInvoice } = useTableValues()
   const [dateValue, setDateValue] = useState(null)
-  const [selection, setSelection] = useState(null)
+  const [selection, setSelection] = useState('unit')
 
   const handleDateChange = (value) => setDateValue(moment(value).locale('pt-br').format('MMM/YYYY'))
   const handleChangeSelection = (value) => setSelection(value.target.value)
@@ -41,7 +41,7 @@ function InvoiceHistory() {
         {selection === 'month' && <LocalizationProvider dateAdapter={AdapterMoment}>
           <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={handleDateChange} />
         </LocalizationProvider>}
-        <IconButton aria-label="search" color="primary">
+        <IconButton onClick={() => handleFindInvoice({ dateValue, selection }, contractNumber)} aria-label="search" color="primary">
           <Search />
         </IconButton>
       </GroupBySelectors>
