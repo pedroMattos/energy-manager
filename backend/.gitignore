@@ -3,3 +3,4 @@
 /scraps/*
 .env
 package-lock.json
+dist
