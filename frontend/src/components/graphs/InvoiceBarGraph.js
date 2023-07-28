@@ -30,7 +30,7 @@ function InvoiceBarGraph() {
 
   return (
     <>
-      {!isLoad && <ReactECharts option={options} />}
+      {!isLoad && <ReactECharts option={options} lazyUpdate />}
     </>
   )
 }

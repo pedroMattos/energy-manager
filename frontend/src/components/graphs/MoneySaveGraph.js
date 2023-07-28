@@ -33,7 +33,7 @@ function MoneySaveGraph() {
 
   return (
     <>
-      {!isLoad && <ReactECharts option={options} />}
+      {!isLoad && <ReactECharts option={options} lazyUpdate />}
     </>
   )
 }
