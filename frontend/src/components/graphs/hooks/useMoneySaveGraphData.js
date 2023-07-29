@@ -8,7 +8,7 @@ function useMoneySaveGraphData() {
   const [isLoad, setIsLoad] = useState(true)
 
   const getMoneySave = async () => {
-    const { data } = await axios.get(`http://localhost:5000/get-money-save-by-date-order/asc/${contractNumber}`)
+    const { data } = await axios.get(`https://energy-manager-backend-production.up.railway.app/get-money-save-by-date-order/asc/${contractNumber}`)
 
     setIsLoad(false)
     setSeries(() => prepareMoneySave(data))

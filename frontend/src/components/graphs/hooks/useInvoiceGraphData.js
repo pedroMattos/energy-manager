@@ -8,7 +8,7 @@ function useInvoiceGraphData() {
   const [isLoad, setIsLoad] = useState(true)
 
   const getMeditions = async () => {
-    const { data } = await axios.get(`http://localhost:5000/get-invoices-prices-by-due-date-order/asc/${contractNumber}`)
+    const { data } = await axios.get(`https://energy-manager-backend-production.up.railway.app/get-invoices-prices-by-due-date-order/asc/${contractNumber}`)
 
     setIsLoad(false)
     

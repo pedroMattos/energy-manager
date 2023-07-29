@@ -11,11 +11,11 @@ function Sidebar() {
       </SidebarHeader>
 
       <List component="nav">
-        <ListItemButton onClick={() => navigate('/dashboard')}>
+        <ListItemButton id="dashboard-navigator" onClick={() => navigate('/dashboard')}>
           <ListItemText sx={{ color: 'white' }} primary="Dashboard" />
         </ListItemButton>
         <Divider />
-        <ListItemButton onClick={() => navigate('/history')}>
+        <ListItemButton id="history-navigator" onClick={() => navigate('/history')}>
           <ListItemText sx={{ color: 'white' }} primary="Histórico de faturas" />
         </ListItemButton>
       </List>

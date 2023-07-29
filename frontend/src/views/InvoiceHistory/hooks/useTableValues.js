@@ -7,7 +7,7 @@ function useTableValues() {
   const [tableValues, setTableValues] = useState(null)
 
   const fetchData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/get-all-invoices/${contractNumber}`)
+    const { data } = await axios.get(`https://energy-manager-backend-production.up.railway.app/get-all-invoices/${contractNumber}`)
 
     setIsload(true)
     setTableValues(data)
@@ -18,13 +18,13 @@ function useTableValues() {
     setTableValues(null)
     console.log(params)
     if (params.selection === 'unit') {
-      const { data } = await axios.post(`http://localhost:5000/invoices-by-contract-number/${contractNumber}`)
+      const { data } = await axios.post(`https://energy-manager-backend-production.up.railway.app/invoices-by-contract-number/${contractNumber}`)
       setIsload(true)
       setTableValues(data)
       return
     }
     const timesTampDate = new Date(params.dateValue).getTime()
-    const { data } = await axios.post(`http://localhost:5000/invoices-by-reference-month/${timesTampDate}`)
+    const { data } = await axios.post(`https://energy-manager-backend-production.up.railway.app/invoices-by-reference-month/${timesTampDate}`)
     setIsload(true)
     setTableValues(data)
   }

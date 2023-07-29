@@ -6,7 +6,7 @@ function useCardData(contractNumber) {
   const [isLoad, setisLoad] = useState(false)
 
   const getCardData = async () => {
-    const { data: invoices } = await axios.get(`http://localhost:5000/get-invoices-prices-by-due-date-order/asc/${contractNumber}`)
+    const { data: invoices } = await axios.get(`https://energy-manager-backend-production.up.railway.app/get-invoices-prices-by-due-date-order/asc/${contractNumber}`)
 
     const lastInvoice = invoices.at(-1)
     const lastPrice = lastInvoice.total_invoice_price
