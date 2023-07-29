@@ -1,7 +1,7 @@
 import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material"
 import useContractNumber from "../hooks/useContractNumber"
 import { PageHeader, PageSection, PageTitle } from "../styles"
-import { GroupBySelectors, GroupTitle } from "./styles"
+import { GroupBySelectors, GroupTitle, SearchField, SelectField } from "./styles"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
 import { useState } from "react"
@@ -27,16 +27,14 @@ function InvoiceHistory() {
       <GroupBySelectors>
         <GroupTitle>Buscar Por</GroupTitle>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Selecione</InputLabel>
-          <Select
+          <SelectField
             labelId="simple-select-label"
-            label="Selecione"
             value={selection}
             onChange={handleChangeSelection}
           >
             <MenuItem value={'unit'}>Unidade Consumidora</MenuItem>
             <MenuItem value={'month'}>Mês e ano</MenuItem>
-          </Select>
+          </SelectField>
         </FormControl>
         {selection === 'month' && <LocalizationProvider dateAdapter={AdapterMoment}>
           <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={handleDateChange} />
@@ -44,6 +42,10 @@ function InvoiceHistory() {
         <IconButton onClick={() => handleFindInvoice({ dateValue, selection }, contractNumber)} aria-label="search" color="primary">
           <Search />
         </IconButton>
+      </GroupBySelectors>
+      <GroupBySelectors>
+        <GroupTitle>Filtrar na tabela</GroupTitle>
+        <SearchField id="outlined-basic" placeholder="Buscar" variant="outlined" />
       </GroupBySelectors>
       {isLoad && <InvoiceHistoryTable dataTable={tableValues} />}
     </PageSection>
