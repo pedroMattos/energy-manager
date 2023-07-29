@@ -24,7 +24,7 @@ function useTableValues() {
       return
     }
     const timesTampDate = new Date(params.dateValue).getTime()
-    const { data } = await axios.post(`https://energy-manager-backend-production.up.railway.app/invoices-by-reference-month/${timesTampDate}`)
+    const { data } = await axios.post(`https://energy-manager-backend-production.up.railway.app/invoices-by-reference-month/${timesTampDate}/${contractNumber}`)
     setIsload(true)
     setTableValues(data)
   }
