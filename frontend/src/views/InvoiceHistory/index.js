@@ -43,10 +43,6 @@ function InvoiceHistory() {
           <Search />
         </IconButton>
       </GroupBySelectors>
-      <GroupBySelectors>
-        <GroupTitle>Filtrar na tabela</GroupTitle>
-        <SearchField id="outlined-basic" placeholder="Buscar" variant="outlined" />
-      </GroupBySelectors>
       {isLoad && <InvoiceHistoryTable dataTable={tableValues} />}
     </PageSection>
   )
