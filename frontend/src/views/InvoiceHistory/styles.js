@@ -1,4 +1,5 @@
 import { Select, TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { styled } from "styled-components";
 
 export const GroupBySelectors = styled.div`
@@ -27,7 +28,7 @@ export const SearchField = styled(TextField)`
 `
 
 export const SelectField = styled(Select)`
-  .MuiSelect-select {
+  .MuiSelect-select.MuiInputBase-input {
     height: 30px;
     padding: 5px;
     display: flex;
@@ -35,5 +36,12 @@ export const SelectField = styled(Select)`
   }
   input {
     height: 0;
+  }
+`
+
+export const DateField = styled(DatePicker)`
+.MuiInputBase-root {
+    padding: 15px;
+    height: 40px;
   }
 `

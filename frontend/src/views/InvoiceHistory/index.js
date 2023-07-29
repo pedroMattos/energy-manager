@@ -1,8 +1,8 @@
-import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material"
+import { FormControl, IconButton, MenuItem } from "@mui/material"
 import useContractNumber from "../hooks/useContractNumber"
 import { PageHeader, PageSection, PageTitle } from "../styles"
-import { GroupBySelectors, GroupTitle, SearchField, SelectField } from "./styles"
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
+import { DateField, GroupBySelectors, GroupTitle, SearchField, SelectField } from "./styles"
+import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
 import { useState } from "react"
 import moment from "moment"
@@ -37,7 +37,7 @@ function InvoiceHistory() {
           </SelectField>
         </FormControl>
         {selection === 'month' && <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DatePicker label={'Escolha o mês e ano'} views={['month', 'year']} onChange={handleDateChange} />
+          <DateField views={['month', 'year']} onChange={handleDateChange} />
         </LocalizationProvider>}
         <IconButton onClick={() => handleFindInvoice({ dateValue, selection }, contractNumber)} aria-label="search" color="primary">
           <Search />
