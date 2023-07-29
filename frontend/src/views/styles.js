@@ -8,8 +8,10 @@ export const AppWrapper = styled.section`
 `
 
 export const PageSection = styled.section`
-  padding: 20px;
+  padding: 0 20px;
   width: 100%;
+  overflow-y: scroll;
+  height: 100vh;
 `
 
 export const PageHeader = styled.div`
